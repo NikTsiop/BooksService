@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BooksService.Application.Mapper.Profiles;
+using BooksService.Api.Mapper.Profiles;
 
-namespace BooksService.Application.Mapper
+namespace BooksService.Api.Mapper
 {
     public class CreateMapper
     {
@@ -10,8 +10,7 @@ namespace BooksService.Application.Mapper
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
-                cfg.AddProfile<UserProfile>();
-                cfg.AddProfile<BookProfile>();
+                cfg.AddProfile<PagedResponseProfile>();
             });
             var mapper = config.CreateMapper();
             return mapper;

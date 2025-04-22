@@ -20,7 +20,7 @@ namespace BooksService.Application.Handlers.CommandsHandlers
         {
             var user = CreateMapper.Mapper.Map<User>(request);
 
-            if (await _userRepository.FindByUserInfo(user) is not null)
+            if (await _userRepository.GetByUserInfo(user) is not null)
                 throw new DuplicateUserException();
 
             var result = await _userRepository.AddAsync(user);

@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=app.db")
 );
 
+
 builder.Services.AddApplicationModule();
 builder.Services.AddPersistenceModule();
 
@@ -25,14 +26,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(StartupBase));
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommandHandler).Assembly));
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.Migrate();
+
+    DbInitializer.Seed(dbContext);
 }
 
 // Configure the HTTP request pipeline.

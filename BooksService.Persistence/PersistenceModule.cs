@@ -9,6 +9,8 @@ namespace BooksService.Persistence
         public static IServiceCollection AddPersistenceModule(this IServiceCollection services) 
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBooksRepository, BooksRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
 
             return services;
         }

@@ -34,6 +34,7 @@ namespace BooksService.Api.Middleware
             {
                 BadHttpRequestException => (int)HttpStatusCode.BadRequest,
                 DuplicateUserException => (int)HttpStatusCode.BadRequest,
+                UserNotFoundException => (int)HttpStatusCode.BadRequest,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

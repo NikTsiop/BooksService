@@ -28,7 +28,12 @@ namespace BooksService.Persistence.Repositories
             }
         }
 
-        public async Task<User?> FindByUserInfo(User user)
+        public async Task<User?> GetByIdAsync(long Id)
+        {
+            return await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(x => x.Id == Id);
+        }
+
+        public async Task<User?> GetByUserInfo(User user)
         {
             try
             {
@@ -38,6 +43,19 @@ namespace BooksService.Persistence.Repositories
                 );
 
                 return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            try
+            {
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
