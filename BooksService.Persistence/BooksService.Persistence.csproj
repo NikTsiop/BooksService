@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BooksService.Application\BooksService.Application.csproj" />
     <ProjectReference Include="..\BooksService.Domain\BooksService.Domain.csproj" />
   </ItemGroup>
 

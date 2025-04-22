@@ -361,3 +361,30 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
+# Build output
+**/bin/
+**/obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Docker artifacts (optional if generated)
+docker-compose.override.yml
+
+# EF Core Migrations Snapshot (optional if you recreate often)
+**/Migrations/*ModelSnapshot.cs
+
+# Visual Studio
+.vs/
+
+# Launch profiles (optional, if personal configs)
+launchSettings.json

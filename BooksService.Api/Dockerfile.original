@@ -13,8 +13,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BooksService.Api/BooksService.Api.csproj", "BooksService.Api/"]
-COPY ["BooksService.Persistence/BooksService.Persistence.csproj", "BooksService.Persistence/"]
-COPY ["BooksService.Domain/BooksService.Domain.csproj", "BooksService.Domain/"]
 RUN dotnet restore "./BooksService.Api/BooksService.Api.csproj"
 COPY . .
 WORKDIR "/src/BooksService.Api"
