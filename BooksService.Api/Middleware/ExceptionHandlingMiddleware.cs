@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using static BooksService.Domain.Exceptions.CategoryExceptions;
 using static BooksService.Domain.Exceptions.UserExceptions;
 
 namespace BooksService.Api.Middleware
@@ -35,6 +36,8 @@ namespace BooksService.Api.Middleware
                 BadHttpRequestException => (int)HttpStatusCode.BadRequest,
                 DuplicateUserException => (int)HttpStatusCode.BadRequest,
                 UserNotFoundException => (int)HttpStatusCode.BadRequest,
+                CategoryNotFoundException => (int)HttpStatusCode.BadRequest,
+                InvalidOperationException => (int)HttpStatusCode.BadRequest,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

@@ -11,6 +11,7 @@ namespace BooksService.Persistence
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBooksRepository, BooksRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;
         }

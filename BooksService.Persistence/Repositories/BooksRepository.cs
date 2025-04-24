@@ -54,5 +54,12 @@ namespace BooksService.Persistence.Repositories
                 throw;
             }
         }
+
+        public async Task<List<Book>> GetByCategoryIdAsync(long categoryId)
+        {
+            return await _context.Books
+                .Where(b => b.CategoryId == categoryId)
+                .ToListAsync();
+        }
     }
 }
