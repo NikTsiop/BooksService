@@ -1,10 +1,10 @@
-﻿using BooksService.Application.Interfaces;
+﻿using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BooksService.Persistence.Repositories
 {
-    public class RoleRepository : IRoleRepository
+    internal class RoleRepository : IRoleRepository
     {
 
         private readonly AppDbContext _context;

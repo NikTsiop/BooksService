@@ -1,5 +1,6 @@
 ﻿using BooksService.Application.Commnands;
-using BooksService.Application.Interfaces;
+using BooksService.Application.Interfaces.DecorateInterfaces;
+using BooksService.Application.Interfaces.Repositories;
 using BooksService.Application.Mapper;
 using BooksService.Domain.Entities;
 using MediatR;
@@ -9,10 +10,12 @@ namespace BooksService.Application.Handlers.CommandsHandlers;
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
 {
     private IUserRepository _userRepository;
+    private IAddRepository<User> _addRepository;
 
-    public CreateUserCommandHandler(IUserRepository userRepository)
+    public CreateUserCommandHandler(IUserRepository userRepository, IAddRepository<User> addRepository)
     {
         _userRepository = userRepository;
+        _addRepository = addRepository;
     }
 
     public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -22,7 +25,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
         if (await _userRepository.GetByUserInfo(user) is not null)
             throw new DuplicateUserException();
 
-        var result = await _userRepository.AddAsync(user);
+        var result = await _addRepository.AddAsync(user);
 
         return result;
     }

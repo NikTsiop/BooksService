@@ -1,5 +1,7 @@
 ﻿using BooksService.Application.Commnands;
-using BooksService.Application.Interfaces;
+using BooksService.Application.Interfaces.DecorateInterfaces;
+using BooksService.Application.Interfaces.Repositories;
+using BooksService.Domain.Entities;
 using MediatR;
 using static BooksService.Domain.Exceptions.CategoryExceptions;
 
@@ -10,11 +12,17 @@ namespace BooksService.Application.Handlers.CommandsHandlers
 
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBooksRepository _booksRepository;
+        private readonly IDeleteRepository<Category> _deleteRepository;
 
-        public DeleteCategoryCommandHandler(ICategoryRepository categoryRepository, IBooksRepository booksRepository)
+        public DeleteCategoryCommandHandler(
+            ICategoryRepository categoryRepository,
+            IBooksRepository booksRepository,
+            IDeleteRepository<Category> deleteRepository
+        )
         {
             _categoryRepository = categoryRepository;
             _booksRepository = booksRepository;
+            _deleteRepository = deleteRepository;
         }
 
         public async Task Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
@@ -30,7 +38,7 @@ namespace BooksService.Application.Handlers.CommandsHandlers
 
             category.EnsureDeletable(books);
 
-            await _categoryRepository.DeleteAsync(category);
+            await _deleteRepository.DeleteAsync(category);
         }
     }
 }

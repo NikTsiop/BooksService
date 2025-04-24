@@ -1,6 +1,6 @@
 ﻿using BooksService.Domain.Entities;
 
-namespace BooksService.Application.Interfaces
+namespace BooksService.Application.Interfaces.Repositories
 {
     public interface IRoleRepository
     {

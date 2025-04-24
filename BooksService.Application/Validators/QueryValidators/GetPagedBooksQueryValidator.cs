@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BooksService.Application.Validators.QueryValidators
 {
-    public class GetPagedBooksQueryValidator: AbstractValidator<GetBooksQuery>
+    internal class GetPagedBooksQueryValidator: AbstractValidator<GetBooksQuery>
     {
         public GetPagedBooksQueryValidator()
         {

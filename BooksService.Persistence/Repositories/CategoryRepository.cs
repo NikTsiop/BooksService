@@ -1,9 +1,9 @@
-﻿using BooksService.Application.Interfaces;
+﻿using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
 
 namespace BooksService.Persistence.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    internal class CategoryRepository : ICategoryRepository
     {
 
         private readonly AppDbContext _context;

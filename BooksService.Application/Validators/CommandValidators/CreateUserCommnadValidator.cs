@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BooksService.Application.Validators.CommandValidators
 {
-    public class CreateUserCommnadValidator: AbstractValidator<CreateUserCommand>
+    internal class CreateUserCommnadValidator: AbstractValidator<CreateUserCommand>
     {
         public CreateUserCommnadValidator()
         {

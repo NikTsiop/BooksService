@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BooksService.Application.Validators.CommandValidators
 {
-    class UpdateUserRoleCommandValidator: AbstractValidator<UpdateUserRoleCommand>
+    internal class UpdateUserRoleCommandValidator: AbstractValidator<UpdateUserRoleCommand>
     {
         public UpdateUserRoleCommandValidator()
         {

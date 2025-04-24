@@ -1,5 +1,5 @@
 ﻿using BooksService.Application.DTO;
-using BooksService.Application.Interfaces;
+using BooksService.Application.Interfaces.Repositories;
 using BooksService.Application.Mapper;
 using BooksService.Application.Queries;
 using MediatR;

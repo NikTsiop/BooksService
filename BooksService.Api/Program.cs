@@ -1,9 +1,9 @@
-using BooksService.Persistence;
+using BooksService.Api.Middleware;
 using BooksService.Application;
+using BooksService.Infrastructure;
+using BooksService.Persistence;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using BooksService.Application.Handlers.CommandsHandlers;
-using BooksService.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddApplicationModule();
+builder.Services.AddInfrastructureModule();
 builder.Services.AddPersistenceModule();
 
 builder.Services.AddControllers();

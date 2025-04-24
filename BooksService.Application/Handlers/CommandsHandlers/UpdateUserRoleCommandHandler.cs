@@ -1,5 +1,7 @@
 ﻿using BooksService.Application.Commnands;
-using BooksService.Application.Interfaces;
+using BooksService.Application.Interfaces.DecorateInterfaces;
+using BooksService.Application.Interfaces.Repositories;
+using BooksService.Domain.Entities;
 using MediatR;
 using static BooksService.Domain.Exceptions.UserExceptions;
 
@@ -10,11 +12,17 @@ namespace BooksService.Application.Handlers.CommandsHandlers
 
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
+        private readonly IUpdateRepository<User> _updateRepository;
 
-        public UpdateUserRoleCommandHandler(IUserRepository userRepository, IRoleRepository roleRepository)
+        public UpdateUserRoleCommandHandler(
+            IUserRepository userRepository,
+            IRoleRepository roleRepository,
+            IUpdateRepository<User> updateRepository
+        )
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _updateRepository = updateRepository;
         }
 
         public async Task Handle(UpdateUserRoleCommand request, CancellationToken cancellationToken)
@@ -28,7 +36,7 @@ namespace BooksService.Application.Handlers.CommandsHandlers
                 throw new ArgumentException("One or more roles were not found");
 
             user.UpdateRoles(roles);
-            await _userRepository.UpdateAsync(user);
+            await _updateRepository.UpdateAsync(user);
         }
     }
 }

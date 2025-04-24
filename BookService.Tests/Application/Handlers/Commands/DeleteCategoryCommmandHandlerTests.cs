@@ -1,6 +1,7 @@
 ﻿using BooksService.Application.Commnands;
 using BooksService.Application.Handlers.CommandsHandlers;
-using BooksService.Application.Interfaces;
+using BooksService.Application.Interfaces.DecorateInterfaces;
+using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
 using Moq;
 using static BooksService.Domain.Exceptions.CategoryExceptions;
@@ -11,13 +12,15 @@ namespace BooksService.Tests.Application.Handlers.Commands
     {
         private readonly Mock<ICategoryRepository> _categoryRepositoryMock = new();
         private readonly Mock<IBooksRepository> _booksRepositoryMock = new();
+        private readonly Mock<IDeleteRepository<Category>> _deleteRepositoryMock = new();
         private readonly DeleteCategoryCommandHandler _handler;
 
         public DeleteCategoryCommandHandlerTests()
         {
             _handler = new DeleteCategoryCommandHandler(
                 _categoryRepositoryMock.Object,
-                _booksRepositoryMock.Object
+                _booksRepositoryMock.Object,
+                _deleteRepositoryMock.Object
             );
         }
 
@@ -67,7 +70,7 @@ namespace BooksService.Tests.Application.Handlers.Commands
             await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            _categoryRepositoryMock.Verify(r => r.DeleteAsync(category), Times.Once);
+            _deleteRepositoryMock.Verify(r => r.DeleteAsync(category), Times.Once);
         }
     }
 }

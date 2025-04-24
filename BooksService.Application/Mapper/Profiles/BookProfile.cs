@@ -4,7 +4,7 @@ using BooksService.Domain.Entities;
 
 namespace BooksService.Application.Mapper.Profiles
 {
-    public class BookProfile: Profile
+    internal class BookProfile: Profile
     {
         public BookProfile()
         {

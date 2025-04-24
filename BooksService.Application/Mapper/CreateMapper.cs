@@ -3,7 +3,7 @@ using BooksService.Application.Mapper.Profiles;
 
 namespace BooksService.Application.Mapper
 {
-    public class CreateMapper
+    internal class CreateMapper
     {
         private static readonly Lazy<IMapper> Lazy = new Lazy<IMapper>(() =>
         {

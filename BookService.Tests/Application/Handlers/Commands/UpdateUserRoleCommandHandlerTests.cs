@@ -1,6 +1,7 @@
 ﻿using BooksService.Application.Commnands;
 using BooksService.Application.Handlers.CommandsHandlers;
-using BooksService.Application.Interfaces;
+using BooksService.Application.Interfaces.DecorateInterfaces;
+using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
 using Moq;
 using static BooksService.Domain.Exceptions.UserExceptions;
@@ -11,11 +12,15 @@ namespace BooksService.Tests.Application.Handlers.Commands
     {
         private readonly Mock<IUserRepository> _userRepositoryMock = new();
         private readonly Mock<IRoleRepository> _roleRepositoryMock = new();
+        private readonly Mock<IUpdateRepository<User>> _updateRepositoryMock = new();
         private readonly UpdateUserRoleCommandHandler _handler;
 
         public UpdateUserRoleCommandHandlerTests()
         {
-            _handler = new UpdateUserRoleCommandHandler(_userRepositoryMock.Object, _roleRepositoryMock.Object);
+            _handler = new UpdateUserRoleCommandHandler(
+                _userRepositoryMock.Object,
+                _roleRepositoryMock.Object,
+                _updateRepositoryMock.Object);
         }
 
         [Fact]
@@ -57,7 +62,7 @@ namespace BooksService.Tests.Application.Handlers.Commands
             await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            _userRepositoryMock.Verify(repo => repo.UpdateAsync(It.Is<User>(u => u.Role.Count == 1 && u.Role.FirstOrDefault().Id == 1)), Times.Once);
+            _updateRepositoryMock.Verify(repo => repo.UpdateAsync(It.Is<User>(u => u.Role.Count == 1 && u.Role.FirstOrDefault().Id == 1)), Times.Once);
         }
     }
 }
