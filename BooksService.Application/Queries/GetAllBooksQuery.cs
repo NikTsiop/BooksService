@@ -3,7 +3,5 @@ using MediatR;
 
 namespace BooksService.Application.Queries
 {
-    public class GetAllBooksQuery: IRequest<List<BookDTO>>
-    {
-    }
+    public class GetAllBooksQuery: IRequest<List<BookDTO>> { }
 }

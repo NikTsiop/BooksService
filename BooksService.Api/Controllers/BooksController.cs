@@ -25,7 +25,7 @@ namespace BooksService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPagedBooks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _mediator.Send(new GetBooksQuery { pageNumber = pageNumber, pageSize = pageSize });
+            var result = await _mediator.Send(new GetPagedBooksQuery { pageNumber = pageNumber, pageSize = pageSize });
             var resultMapped = CreateMapper.Mapper.Map<PagedResponse<BookDTO>>(result);
             return Ok(resultMapped);
         }

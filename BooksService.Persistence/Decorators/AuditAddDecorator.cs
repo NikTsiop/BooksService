@@ -14,10 +14,10 @@ namespace BooksService.Persistence.Decorators
             _audit = audit;
         }
 
-        public async Task<bool> AddAsync(TEntity entity)
+        public async Task<long?> AddAsync(TEntity entity)
         {
             var result = await _inner.AddAsync(entity);
-            if (result)
+            if (result is not null)
             {
                 await _audit.LogAsync(
                     entityName: typeof(TEntity).Name,

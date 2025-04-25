@@ -3,6 +3,7 @@ using BooksService.Application.Handlers.CommandsHandlers;
 using BooksService.Application.Interfaces.DecorateInterfaces;
 using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
+using Microsoft.Extensions.Logging;
 using Moq;
 using static BooksService.Domain.Exceptions.CategoryExceptions;
 
@@ -13,6 +14,7 @@ namespace BooksService.Tests.Application.Handlers.Commands
         private readonly Mock<ICategoryRepository> _categoryRepositoryMock = new();
         private readonly Mock<IBooksRepository> _booksRepositoryMock = new();
         private readonly Mock<IDeleteRepository<Category>> _deleteRepositoryMock = new();
+        private readonly Mock<ILogger<DeleteCategoryCommandHandler>> _loggerMock = new();
         private readonly DeleteCategoryCommandHandler _handler;
 
         public DeleteCategoryCommandHandlerTests()
@@ -20,7 +22,8 @@ namespace BooksService.Tests.Application.Handlers.Commands
             _handler = new DeleteCategoryCommandHandler(
                 _categoryRepositoryMock.Object,
                 _booksRepositoryMock.Object,
-                _deleteRepositoryMock.Object
+                _deleteRepositoryMock.Object,
+                _loggerMock.Object
             );
         }
 

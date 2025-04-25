@@ -7,15 +7,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+var dbPath = Path.Combine(AppContext.BaseDirectory, "app.db");
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=app.db")
+    options.UseSqlite($"Data Source={dbPath}")
 );
 
 
 builder.Services.AddApplicationModule();
 builder.Services.AddInfrastructureModule();
 builder.Services.AddPersistenceModule();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddControllers();
 

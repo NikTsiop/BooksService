@@ -3,6 +3,7 @@ using BooksService.Application.Handlers.CommandsHandlers;
 using BooksService.Application.Interfaces.DecorateInterfaces;
 using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
+using Microsoft.Extensions.Logging;
 using Moq;
 using static BooksService.Domain.Exceptions.UserExceptions;
 
@@ -13,6 +14,7 @@ namespace BooksService.Tests.Application.Handlers.Commands
         private readonly Mock<IUserRepository> _userRepositoryMock = new();
         private readonly Mock<IRoleRepository> _roleRepositoryMock = new();
         private readonly Mock<IUpdateRepository<User>> _updateRepositoryMock = new();
+        private readonly Mock<ILogger<UpdateUserRoleCommandHandler>> _loggerMock = new();
         private readonly UpdateUserRoleCommandHandler _handler;
 
         public UpdateUserRoleCommandHandlerTests()
@@ -20,7 +22,8 @@ namespace BooksService.Tests.Application.Handlers.Commands
             _handler = new UpdateUserRoleCommandHandler(
                 _userRepositoryMock.Object,
                 _roleRepositoryMock.Object,
-                _updateRepositoryMock.Object);
+                _updateRepositoryMock.Object,
+                _loggerMock.Object);
         }
 
         [Fact]

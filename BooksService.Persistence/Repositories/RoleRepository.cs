@@ -13,6 +13,12 @@ namespace BooksService.Persistence.Repositories
         {
             _context = context;
         }
+
+        public async Task<List<Role>> GetAllAsync()
+        {
+            return await _context.Roles.ToListAsync();
+        }
+
         public async Task<List<Role>> GetByIdsAsync(List<long> ids)
         {
             return await _context.Roles

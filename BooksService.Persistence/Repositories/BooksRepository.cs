@@ -15,44 +15,21 @@ namespace BooksService.Persistence.Repositories
 
         public async Task<List<Book>> GetPagedAsync(int pageNumber = 1, int pageSize = 10)
         {
-            try
-            {
-                return await _context.Books
-                    .OrderBy(b => b.Id)
-                    .Skip((pageNumber - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
+            return await _context.Books
+                .OrderBy(b => b.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<List<Book>> GetAllAsync()
         {
-            try
-            {
-                return await _context.Books.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
+            return await _context.Books.ToListAsync();
         }
 
         public async Task<int> CountBooksAsync()
         {
-            try
-            {
-                return await _context.Books.CountAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Books.CountAsync();
         }
 
         public async Task<List<Book>> GetByCategoryIdAsync(long categoryId)

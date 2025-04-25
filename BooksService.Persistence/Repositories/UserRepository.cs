@@ -1,4 +1,5 @@
-﻿using BooksService.Application.Interfaces.Repositories;
+﻿using BooksService.Application.Interfaces.DecorateInterfaces;
+using BooksService.Application.Interfaces.Repositories;
 using BooksService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,19 +14,16 @@ namespace BooksService.Persistence.Repositories
             _context = context;            
         }
 
-        public async Task<bool> AddAsync(User user)
+        public async Task<long?> AddAsync(User user)
         {
-            try
-            {
-                await _context.Users.AddAsync(user);
-                await _context.SaveChangesAsync();
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
 
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            // Retrieving the user ID after the creation
+            return await _context.Users
+                .Where(u => u.FirstName == user.FirstName && u.Surname == user.Surname)
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<User?> GetByIdAsync(long Id)
@@ -35,32 +33,15 @@ namespace BooksService.Persistence.Repositories
 
         public async Task<User?> GetByUserInfo(User user)
         {
-            try
-            {
-                var result = await _context.Users.FirstOrDefaultAsync(
-                    u => u.FirstName == user.FirstName &&
-                    u.Surname == user.Surname
-                );
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            // Retrieve user ID based on matching FirstName and Surname
+            return await _context.Users.FirstOrDefaultAsync(
+                u => u.FirstName == user.FirstName && u.Surname == user.Surname);
         }
 
         public async Task UpdateAsync(User user)
         {
-            try
-            {
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

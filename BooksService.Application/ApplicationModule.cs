@@ -18,7 +18,7 @@ namespace BooksService.Application
             services.AddValidatorsFromAssemblyContaining<GetPagedBooksQueryValidator>();
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommandHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetBooksQueryHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetPagedBooksQueryHandler).Assembly));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetAllBooksQueryHandler).Assembly));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UpdateUserRoleCommandHandler).Assembly));
 

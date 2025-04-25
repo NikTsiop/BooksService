@@ -1,4 +1,6 @@
-﻿using BooksService.Application.Commnands;
+﻿using BooksService.Api.Mapper;
+using BooksService.Api.Responses;
+using BooksService.Application.Commnands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +25,7 @@ namespace BooksService.Api.Controllers
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand userCommand)
         {
             var result = await _mediator.Send(userCommand);
-            return Ok(result);
+            return Ok(CreateMapper.Mapper.Map<UserCreatedResponse>(result));
         }
         
         [HttpPut]

@@ -8,10 +8,14 @@ namespace BooksService.Api.Middleware
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+        public ExceptionHandlingMiddleware(
+            RequestDelegate next,
+            ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -22,6 +26,7 @@ namespace BooksService.Api.Middleware
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Exception handled with ErrorMessage: {Message}, Path {Path}", ex.Message, context.Request.Path);
                 await HandleExceptionAsync(context, ex);
             }
         }

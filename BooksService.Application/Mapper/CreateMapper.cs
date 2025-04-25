@@ -12,6 +12,7 @@ namespace BooksService.Application.Mapper
                 cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<BookProfile>();
+                cfg.AddProfile<RoleProfile>();
             });
             var mapper = config.CreateMapper();
             return mapper;
